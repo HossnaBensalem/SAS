@@ -142,6 +142,32 @@ void supprimer()
          }
 Taille--;
 }
+void filtre()
+{
+    if (Taille == 0){
+        printf("Aucune tache disponible.\n");
+        return;
+    }
+    char filtre[20];
+    printf("Entrez la priorité pour filtrer (high/low) : ");
+    scanf("%s", filtre);
+    int T= 0;
+    int i; 
+    printf("\nTaches avec la priorite '%s' :\n", filtre);
+    for (i = 0; i < Taille; i++) {
+        if (strcmp(ts[i].priorite, filtre) == 0) {
+            printf("Tache %d :\n", i + 1);
+            printf("  Titre       : %s\n", ts[i].titre);
+            printf("  Description : %s\n", ts[i].description);
+            printf("  Date        : %02d/%02d/%04d\n", ts[i].date.jour, ts[i].date.mois, ts[i].date.annee);
+            printf("  priorite    : %s\n", ts[i].priorite);
+            T = 1;
+        }
+    }
+    if (!T) {
+        printf("Aucune tâche trouvée avec la priorite '%s'.\n", filtre);
+    }
+}
 void menu(){
         printf("==============================\n");
         printf("::::::::::: MENU :::::::::::::\n");
@@ -151,7 +177,8 @@ void menu(){
         printf("2. pour afficher la liste des taches\n");
         printf("3. pour modifier une tache\n");
         printf("4. pour supprimer une tache\n");
-        printf("5. quitter \n");
+        printf("5. pour Filtrer les Taches \n");
+        printf("6. quitter \n");
         
 }
 int main()
@@ -174,7 +201,10 @@ int main()
         case 4:
         supprimer();
         break;
-        case 5 : printf("au revoir!\n");
+        case 5:
+        filtre();
+        break;
+        case 6 : printf("au revoir!\n");
         exit(0);
         default:
         printf("option invalide\n"); 
