@@ -65,7 +65,7 @@ void ajouter(){
     }
     }while (ts[Taille].date.annee>2050);
     Taille++;   
-    printf("la tache a ete ajouter avec succes");
+    printf("la tache a ete ajouter avec succes \n");
 }
 void afficher()
 {
@@ -178,8 +178,7 @@ void menu(){
         printf("3. pour modifier une tache\n");
         printf("4. pour supprimer une tache\n");
         printf("5. pour Filtrer les Taches \n");
-        printf("6. quitter \n");
-        
+        printf("6. quitter \n");      
 }
 int main()
 {
