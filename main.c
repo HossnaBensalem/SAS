@@ -1,77 +1,57 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
 #include <stdio.h>
 #include <string.h>
 #include<stdlib.h>
+
+//la structure Date_echeance pour stocker la date d'échéance d'une tâche
 typedef struct{
     int jour;
     int mois;
     int annee;
 }Date_echeance;
+//la structure Tache pour stocker les informations d'une tâche
  typedef struct{
      char titre[50];
      char description[100];
      char priorite[10];
      Date_echeance date;
 }Tache;
+// Tableau de tâches avec une capacité maximale de 100 tâches
      Tache ts[100];
      int Taille =0;
-    
+// Fonction pour ajouter une nouvelle tâche
 void ajouter(){
-    printf("entre un titre:");
-    scanf(" %[^\n]%*c",ts[Taille].titre);
-    printf("donner une description:");
-    scanf(" %[^\n]%*c",ts[Taille].description);
-    int choix;
-  do{
-        printf("entre la priorite(1-high 2-low):");
-        scanf("%d",&choix);
-        switch (choix)
-        {
-            case 1:
-            strcpy(ts[Taille].priorite,"high");
-            break;
-            case 2:
-            strcpy(ts[Taille].priorite,"low");
-            break;
-           default:printf("choix invalide");
-        }
-    }while(choix!=1 && choix!=2);
-  do{
-     printf("Entrer le jour (1 a 31):");
-     scanf("%d",&ts[Taille].date.jour); 
-     if(ts[Taille].date.jour>=1 && ts[Taille].date.jour<=31 ){ 
-     }
-     else{
-         printf("le jour est invalide, \n");
-        }
-     }while (ts[Taille].date.jour<1 || ts[Taille].date.jour>31);
-  do{
-     printf("donner le mois:");
-     scanf("%d",&ts[Taille].date.mois);
-    if(ts[Taille].date.mois>=1 && ts[Taille].date.mois<=12){
-    }
-    else{
-        printf("le mois est invalide  \n");
-    }
-    }while (ts[Taille].date.mois<1 || ts[Taille].date.mois>12);
-
-  do{
-    printf("donner l'annee:");
-    scanf("%d",&ts[Taille].date.annee);
-    if(ts[Taille].date.annee<=2050){
-        
-    }
-    else{
-        printf("annee est invalide \n");
-    }
-    }while (ts[Taille].date.annee>2050);
-    Taille++;   
-    printf("la tache a ete ajouter avec succes \n");
-}
+    
+   printf("entre un titre :");
+   scanf(" %[^\n]",ts[Taille].titre);
+   printf("donner une description :");
+   scanf(" %[^\n]",ts[Taille].description);
+   printf("entre la priorite high/low :");
+   scanf(" %[^\n]",ts[Taille].priorite);
+   printf("entre le jour :");
+   scanf("%d",&ts[Taille].date.jour);
+   printf("entre le mois :");
+   scanf("%d",&ts[Taille].date.mois);
+   printf("entre le annee :");
+   scanf("%d",&ts[Taille].date.annee);
+   Taille++;
+      
+   printf("Tache ajoutee avec succees\n");
+   }
+ // Fonction pour afficher la liste des tâches
 void afficher()
 {
     if(Taille==0){
         printf("aucun taches disponibles!!");
         return;
+// Affiche toutes les tâches enregistrées
     }
     int i;
     for(i=0;i<Taille;i++){
@@ -83,47 +63,36 @@ void afficher()
     printf("l'annee est :%d\n",ts[i].date.annee);
     }
 }
+// Fonction pour modifier une tâche existante
 void modifier()
 {
-    if(Taille==0){
-        printf("aucun taches disponibles!!");
-    }
     int indice;
-    printf("Entre l'indice de la tache qui veux modifier (0 a %d): ", Taille - 1);
-    scanf("%d", &indice);
-    if (indice < 0 || indice >= Taille)
-    {
-        printf("invalide!\n");
-    }
-    else {
-    printf("Entre le nouveau titre est :");
-    scanf("%s",ts[indice].titre);
-    printf("Entre le nouveau description est :");
+    printf("Entre l'indice de la tache qui veux modifier : ");
+     scanf("%d", &indice);// Demande à l'utilisateur de saisir l'indice de tâche
+     if (indice > 0 && indice <= Taille) {
+    printf("Entrez un nouveau titre : ");
+    scanf(" %[^\n]",ts[indice].titre);
+    printf("Entrez un nouveau description :");
     scanf("%s",ts[indice].description);
-    }
-    int choix;
-    do
-    {
-        printf("entre la priorite(1-high 2-low):");
-        scanf("%d",&choix);
-        switch (choix)
-        {
-            case 1:
-            strcpy(ts[indice].priorite,"high");
-            break;
-            case 2:
-            strcpy(ts[indice].priorite,"low");
-            break;
-           default:printf("choix invalide");
-        }
-    }while(choix!=1 && choix!=2);
+    printf(" Modiffier date d'echeance  : ");
     printf("Entre le nouveau jour est :");
     scanf("%d",&ts[indice].date.jour);
     printf("Entre le nouveau mois est :");
     scanf("%d",&ts[indice].date.mois);
     printf("Entre le nouveau annee est :");
     scanf("%d",&ts[indice].date.annee);
-}
+    
+    printf("Priorité actuelle : %s\n", ts[indice].priorite);
+    printf("Entrez une nouvelle priorité (high/low) : ");
+    scanf(" %s",ts[indice].priorite); 
+         indice--;
+    printf("Tache a modifier avec succees\n");
+     }
+     else{
+         printf("invalide index");
+         }
+     }
+// Fonction pour supprimer une tâche
 void supprimer()
 {
     if(Taille==0){
@@ -142,6 +111,7 @@ void supprimer()
          }
 Taille--;
 }
+// Fonction pour filtrer les tâches par priorité
 void filtre()
 {
     if (Taille == 0){
@@ -167,7 +137,7 @@ void filtre()
     if (!T) {
         printf("Aucune tâche trouvée avec la priorite '%s'.\n", filtre);
     }
-}
+}// Affiche le menu
 void menu(){
         printf("==============================\n");
         printf("::::::::::: MENU :::::::::::::\n");
@@ -178,7 +148,8 @@ void menu(){
         printf("3. pour modifier une tache\n");
         printf("4. pour supprimer une tache\n");
         printf("5. pour Filtrer les Taches \n");
-        printf("6. quitter \n");      
+        printf("6. quitter \n");   
+   // Fonction principale     
 }
 int main()
 {
